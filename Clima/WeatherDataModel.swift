@@ -11,7 +11,8 @@ import UIKit
 class WeatherDataModel {
 
     //Declare your model variables here
-    var temperature : Int = 0
+    var temperatureCel : Int = 0
+    var temperatureFah : Int = 32
     var condition : Int = 0
     var city : String = ""
     var weatherIconName : String = ""

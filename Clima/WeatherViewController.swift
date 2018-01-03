@@ -16,7 +16,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-    let APP_ID = "3d8a41ba0055c2560718e65a097edeb7"
+    let APP_ID = "3d8a41ba0055c2560718e65a097edeb7" //if you downloaded this to edit, Get your own app_id by signing up on openweathermap.org
     
 
     //TODO: Declare instance variables here
@@ -31,7 +31,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     @IBOutlet weak var celLabel: UILabel!
     @IBOutlet weak var farLabel: UILabel!
     @IBAction func tempScaleButton(_ sender: Any) {
-        print("before: \(isCelsisus)")
         if isCelsisus {
             isCelsisus = false
             celLabel.textColor = UIColor.lightGray
@@ -41,15 +40,13 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
             celLabel.textColor = UIColor.white
             farLabel.textColor = UIColor.lightGray
         }
-        print("after: \(isCelsisus)")
+        updateUIWithWeatherData()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //TODO:Set up the location manager here.
+
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
@@ -96,7 +93,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         
         if let tempResult = json["main"]["temp"].double {
             
-            weatherDataModel.temperature = Int(tempResult - 273.15)
+            weatherDataModel.temperatureCel = Int(tempResult - 273.15)
+            weatherDataModel.temperatureFah = Int(1.8*tempResult - 459.67)
             weatherDataModel.city = json["name"].stringValue
             weatherDataModel.condition = json["weather"][0]["id"].intValue
             weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
@@ -120,7 +118,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //Write the updateUIWithWeatherData method here:
     func updateUIWithWeatherData() {
         cityLabel.text = weatherDataModel.city
-        temperatureLabel.text = "\(weatherDataModel.temperature)º"
+        if isCelsisus {
+            temperatureLabel.text = "\(weatherDataModel.temperatureCel)º"
+        } else {
+            temperatureLabel.text = "\(weatherDataModel.temperatureFah)º"
+        }
         weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
     }
     
