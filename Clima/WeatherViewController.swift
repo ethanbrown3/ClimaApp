@@ -22,12 +22,28 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //TODO: Declare instance variables here
     let locationManager = CLLocationManager()
     let weatherDataModel = WeatherDataModel()
+    var isCelsisus = true
     
     //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-
+    @IBOutlet weak var celLabel: UILabel!
+    @IBOutlet weak var farLabel: UILabel!
+    @IBAction func tempScaleButton(_ sender: Any) {
+        print("before: \(isCelsisus)")
+        if isCelsisus {
+            isCelsisus = false
+            celLabel.textColor = UIColor.lightGray
+            farLabel.textColor = UIColor.white
+        } else {
+            isCelsisus = true
+            celLabel.textColor = UIColor.white
+            farLabel.textColor = UIColor.lightGray
+        }
+        print("after: \(isCelsisus)")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
