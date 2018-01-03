@@ -1,3 +1,11 @@
+# ethanbrown3 Modifications
+I've gone on to implement my own features and do some refactoring that I believe to improve upon the project.
+I will periodically add to this list
+
+Changes:
+
+	• added toggle button to switch from celsius to fahrenheit.
+
 # Clima
 Learn to make iOS Apps with [The App Brewery](https://www.appbrewery.co) 📱 | Project Stub | (Swift 4.0/Xcode 9) - Clima App
 
